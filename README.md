@@ -21,7 +21,7 @@ getpass
 
 ````
 
-用户信息显示等功能请等待后续更新
+用户信息显示等功能请等待后续更新 (逃
 
 ````
 Author：EndangeredFish
