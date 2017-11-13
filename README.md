@@ -33,4 +33,6 @@ Author：EndangeredFish
 Email: zwy346545141@gmail.com
 
 First Commit Date:  Monday,13 Nov 2017
+
+LICENSE: AGPLv3
 ````
