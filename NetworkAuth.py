@@ -6,18 +6,22 @@ from urllib.parse import urlparse
 
 
 def servicechoose(serv):
-    if serv == '1':
-        return "default"
-    elif serv == '2':
-        return "unicom"
-    elif serv == '3':
-        return "cmcc"
-    elif serv == '4':
-        return "ctcc"
-    elif serv == '5':
-        return "local"
-    else:
-        print("Input failed!")
+    try:
+        if serv == '1':
+            return "default"
+        elif serv == '2':
+            return "unicom"
+        elif serv == '3':
+            return "cmcc"
+        elif serv == '4':
+            return "ctcc"
+        elif serv == '5':
+            return "local"
+        else:
+            print("Input failed!")
+    except Exception:
+        print("输入类型有误！请重新运行程序")
+        exit(1)
 
 
 address = "http://121.251.251.207"
