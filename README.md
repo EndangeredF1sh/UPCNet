@@ -26,6 +26,7 @@ getpass
 
 用户信息显示等功能请等待后续更新 (逃
 
+测试环境为macOS 10.13.1 其他系统未测试
 ### 版权信息
 ````
 Author：EndangeredFish
