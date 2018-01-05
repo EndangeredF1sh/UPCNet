@@ -1,7 +1,7 @@
 # 中国石油大学（华东）校园网络认证脚本
 
 ### 依赖
-本脚本采用Python3编写，依赖于
+采用Python3编写，依赖于
 
 ````
 Requests
@@ -34,11 +34,8 @@ time
 
 ````
 
-Author：EndangeredFish
+Author：LucienShui
 
-Email: zwy346545141@gmail.com
+Rrom：EndangeredFish
 
-First Commit Date:  Monday,13 Nov 2017 
-
-LICENSE: AGPLv3
 ````
