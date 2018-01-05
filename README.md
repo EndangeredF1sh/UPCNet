@@ -1,6 +1,10 @@
 # 中国石油大学（华东）校园网络认证脚本
 
-### 依赖
+### 可执行程序
+
+下载地址（内含Mac、Windows、Ubuntu三个版本，自行选择下载）：https://pan.baidu.com/s/1gfnNqiJ
+
+### 源码依赖
 采用Python3编写，依赖于
 
 ````
