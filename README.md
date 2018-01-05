@@ -2,7 +2,7 @@
 
 ### 可执行程序
 
-下载地址（内含Mac、Windows、Ubuntu三个版本，自行选择下载）：https://pan.baidu.com/s/1gfnNqiJ
+下载地址（内含Mac、Windows、Ubuntu三个版本，自行选择下载）：https://pan.baidu.com/s/1gfq5kT9
 
 ### 源码依赖
 采用Python3编写，依赖于
