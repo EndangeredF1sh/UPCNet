@@ -8,6 +8,8 @@ def servicechoose(serv):
     elif serv == '3': return "cmcc"
     elif serv == '4': return "ctcc"
     return "local"
+print("By LucienShui & EndangeredF1sh")
+print("------------------------------")
 trueUrl = requests.post("http://121.251.251.207", allow_redirects=True).url
 argParsed = urllib.parse.quote(urlparse(trueUrl).query)
 if argParsed.find('wlanuserip') == -1: 
