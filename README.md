@@ -8,7 +8,6 @@
 requests
 urllib/urllib.parse
 base64
-
 ````
 
 ### 使用方法
