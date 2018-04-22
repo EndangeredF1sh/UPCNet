@@ -11,16 +11,16 @@ def servicechoose(serv): # 运营商选择
     elif serv == '4': return "ctcc" # 电信
     return "local" # 校园内网
 
-def encode(string):
+def encode(string): # 加密
     return base64.encodebytes(str.encode(string, 'utf-8'))
 
-def decode(code):
+def decode(code): # 解密
     return bytes.decode(base64.decodebytes(code), 'utf-8')
 
 class NotRouterError(ValueError):
     pass
 
-filename = './config.ini' # 加密后的账号密码
+filename = './config.ini' # 加密后的账号密码储存在根目录下
 
 def login(): # 登录模块
     argParsed = ""
@@ -50,8 +50,8 @@ def login(): # 登录模块
 
     url = address + "/eportal/InterFace.do?method=login"
 
-    str = decode(open(filename, "rb").readline()) # 读文件
-    userName = str.split(' ')[0] # 解密账号密码
+    str = decode(open(filename, "rb").readline()) # 读取二进制文件并解密
+    userName = str.split(' ')[0]
     passWord = str.split(' ')[1]
     service = servicechoose(str.split(' ')[2])
 
@@ -68,11 +68,12 @@ if os.path.exists(filename):
     login()
 else:
     print('No user data, please input your account imformation.')
-    with open(filename, 'wb') as file:
+    with open(filename, 'wb') as file: # 二进制文件写入
+        # 把账号信息压进一个字符串后进行加密
         str_tmp = input('School number:\n')
         str_tmp = str_tmp + ' ' + input('Password:\n')
         str_tmp = str_tmp + ' ' + input('Communications:\n1.default 2.unicom 3.cmcc 4.ctcc 5.local\n')
-        code = encode(str_tmp)
-        file.write(code)
+        code = encode(str_tmp) # 加密
+        file.write(code) # 写文件
     login()
 
