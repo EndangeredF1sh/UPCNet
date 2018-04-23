@@ -1,8 +1,8 @@
 import requests
 import urllib
 import os
-from urllib.parse import urlparse
 import base64
+import time
 
 def servicechoose(serv): # 运营商选择
     if serv == '1': return "default" # 校园网
@@ -16,6 +16,11 @@ def encode(string): # 加密
 
 def decode(code): # 解密
     return bytes.decode(base64.decodebytes(code), 'utf-8')
+
+def autoexit():
+    print("3 seconds later exit")
+    time.sleep(3)
+    exit(0)
 
 class NotRouterError(ValueError):
     pass
@@ -34,7 +39,6 @@ def login(): # 登录模块
 
     except requests.exceptions.ConnectionError:
         print("Please check the network connection or close the login windows")  # macOS的登录界面会阻断网络连接
-        exit(-1)
 
     except NotRouterError:
         address = "http://121.251.251.217/"
@@ -42,11 +46,11 @@ def login(): # 登录模块
         argParsed = urllib.parse.quote(trueText[pIndex:])
 
     else:
-        argParsed = urllib.parse.quote(urlparse(trueUrl).query)
+        argParsed = urllib.parse.quote(urllib.parse.urlparse(trueUrl).query)
 
     if argParsed.find('wlanuserip') == -1:
         print("Already online")  # 已经登录
-        exit(0)
+        autoexit()
 
     url = address + "/eportal/InterFace.do?method=login"
 
@@ -58,11 +62,13 @@ def login(): # 登录模块
     payload = {'userId': userName, 'password': passWord, 'service': service, 'queryString': argParsed,
                'operatorPwd': '', 'operatorUserId': '', 'vaildcode': ''}
     postMessage = requests.post(url, data=payload)
+    
     if postMessage.text.find("success") >= 0:
         print("Login success")  # 登录成功
     else:
         print("Something wrong")  # 登录失败
-        exit(0)
+        
+    autoexit()
 
 if os.path.exists(filename):
     login()
@@ -76,4 +82,3 @@ else:
         code = encode(str_tmp) # 加密
         file.write(code) # 写文件
     login()
-
