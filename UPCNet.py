@@ -18,8 +18,7 @@ def decode(code):  # 解密
     return bytes.decode(base64.decodebytes(code), 'utf-8')
 
 def autoexit():
-    print("3 seconds later exit")
-    time.sleep(3)
+    time.sleep(2)
     exit(0)
 
 class NotRouterError(ValueError):
@@ -74,7 +73,7 @@ else:
     print('No user data, please input your account imformation.')
     str_tmp = input('School number: ') # 把账号信息压进一个字符串后进行加密
     str_tmp = str_tmp + ' ' + input('Password: ')
-    str_tmp = str_tmp + ' ' + input('=========\n1.default\n2.unicom\n3.cmcc\n4.ctcc\n5.local\n'
-                                    '=========\nCommunications number: ')
+    str_tmp = str_tmp + ' ' + input('1.default\n2.unicom\n3.cmcc\n4.ctcc\n5.local\n'
+                                    'Communications number: ')
     open(filename, 'wb').write(encode(str_tmp)) # 加密后的字符串写入二进制文件
     login()
