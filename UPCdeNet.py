@@ -33,7 +33,7 @@ if argParsed.find('wlanuserip') == -1:
     userIndex = urllib.parse.urlparse(trueUrl).query[10:]
     requests.post("http://121.251.251.217/eportal/InterFace.do?method=logout", data={'userIndex': userIndex})
     requests.post("http://121.251.251.207/eportal/InterFace.do?method=logout", data={'userIndex': userIndex})
-    print("Logout success")
+    print("Logout success") # 退出成功
 else:
     print('Something wrong')
 
