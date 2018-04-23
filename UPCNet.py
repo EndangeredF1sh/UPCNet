@@ -39,6 +39,7 @@ def login(): # 登录模块
 
     except requests.exceptions.ConnectionError:
         print("Please check the network connection or close the login windows")  # macOS的登录界面会阻断网络连接
+        autoexit()
 
     except NotRouterError:
         address = "http://121.251.251.217/"
@@ -67,7 +68,6 @@ def login(): # 登录模块
         print("Login success")  # 登录成功
     else:
         print("Something wrong")  # 登录失败
-        
     autoexit()
 
 if os.path.exists(filename):
