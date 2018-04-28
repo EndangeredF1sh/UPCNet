@@ -21,6 +21,14 @@ def autoexit():
     time.sleep(2)
     exit(0)
 
+class fontType: # 控制台字体输出样式
+    underLine = '\033[4m'
+    red = '\033[31m'
+    green = '\033[32m'
+    yellow = '\033[33m'
+    tail = '\033[0m'
+    clear = '\033[1A\033[K\033[1A\033[K'
+
 class NotRouterError(ValueError):
     pass
 
@@ -70,10 +78,10 @@ def login():  # 登录模块
 
 if os.path.exists(filename): login()
 else:
-    print('No user data, please input your account imformation.')
-    str_tmp = input('School number: ') # 把账号信息压进一个字符串后进行加密
-    str_tmp = str_tmp + ' ' + input('Password: ')
-    str_tmp = str_tmp + ' ' + input('1.default\n2.unicom\n3.cmcc\n4.ctcc\n5.local\n'
-                                    'Communications number: ')
+    print(fontType.red + 'No user data, please input your account imformation.' + fontType.red)
+    str_tmp = input(fontType.green + 'School number' + fontType.tail + ': \n') # 把账号信息压进一个字符串后进行加密
+    str_tmp = str_tmp + ' ' + input(fontType.clear + fontType.green + 'Password' + fontType.tail + ': \n')
+    str_tmp = str_tmp + ' ' + input(fontType.clear + '1.default 2.unicom 3.cmcc 4.ctcc 5.local\n' 
+            + fontType.green + 'Communications number' + fontType.tail + ': ')
     open(filename, 'wb').write(encode(str_tmp)) # 加密后的字符串写入二进制文件
     login()
