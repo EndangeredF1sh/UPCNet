@@ -3,8 +3,7 @@ import urllib
 import time
 
 def autoexit():
-    print("3 seconds later exit")
-    time.sleep(3)
+    time.sleep(1)
     exit(0)
 
 class NotRouterError(ValueError):
