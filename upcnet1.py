@@ -34,8 +34,7 @@ def online():
     try:
         query = requests.get("http://www.lucien.ink/test", timeout=5)
         return query.text == 'Hello World!'
-    except:
-        return False
+    except: return False
 
 
 class fontType:  # 控制台字体输出样式
@@ -47,8 +46,7 @@ class fontType:  # 控制台字体输出样式
     clear = '\033[1A\033[K'
 
 
-class NotRouterError(ValueError):
-    pass
+class NotRouterError(ValueError): pass
 
 
 def login():  # 登录模块
