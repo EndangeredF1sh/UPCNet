@@ -2,7 +2,7 @@
 
 
 ## 源码依赖
-&emsp;&emsp;采用Python3编写，依赖于
+采用Python3编写，依赖于
 
 ```
 requests
