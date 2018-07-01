@@ -2,7 +2,6 @@ import requests, urllib, os, base64, time, sys
 from getpass import getpass
 
 # 全局变量
-
 filePath = sys.path[0] + '/config.ini'  # 加密后的账号密码储存在根目录下
 argParsed = ""
 trueText = ""
