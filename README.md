@@ -12,7 +12,7 @@ base64
 
 ### 使用方法
 
-##### &emsp;upcnet.py:
+#### &emsp;upcnet.py:
 
 &emsp;&emsp;如果根目录下没有账号信息就会要求输入账号密码以及选择运营商，然后会加密后保存在本地的`config.ini`文件中。值得一提的是输入密码时是不可见的，可能大部分Windows用户都不知道。
 
@@ -28,7 +28,7 @@ base64
 5.校园内网
 ```
 
-##### &emsp;denet.py:
+#### &emsp;denet.py:
 
 &emsp;&emsp;执行一下之后就会退出当前已登录的校园网账号。
 
