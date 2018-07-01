@@ -1,7 +1,7 @@
 # 中国石油大学（华东）校园网络认证脚本
 
 
-### 源码依赖
+## 源码依赖
 &emsp;&emsp;采用Python3编写，依赖于
 
 ```
@@ -10,9 +10,9 @@ urllib/urllib.parse
 base64
 ```
 
-### 使用方法
+## 使用方法
 
-#### &emsp;upcnet.py:
+### upcnet.py:
 
 如果根目录下没有账号信息就会要求输入账号密码以及选择运营商，然后会加密后保存在本地的`config.ini`文件中。值得一提的是输入密码时是不可见的，可能大部分Windows用户都不知道。
 
@@ -28,15 +28,15 @@ base64
 5.校园内网
 ```
 
-#### &emsp;denet.py:
+### denet.py:
 
 执行一下之后就会退出当前已登录的校园网账号。
 
-### 目前支持的网络类型：
+## 目前支持的网络类型：
 
 理论上支持所有锐捷`eportal`认证。
 
-### 版权信息
+## 版权信息
 
 ```
 Author：LucienShui
@@ -44,6 +44,6 @@ Author：LucienShui
 From：EndangeredFish
 ```
 
-### 鸣谢
+## 鸣谢
 
 [EndangeredFish](https://github.com/EndangeredF1sh)
