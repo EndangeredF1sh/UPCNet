@@ -114,7 +114,7 @@ def upcnet():
         # 把账号信息压进一个字符串后进行加密
         str_tmp = input(fontType.red + 'School number' + fontType.tail + ': ')
         # str_tmp = str_tmp + ' ' + input(fontType.green + 'Password(Invisible)' + fontType.tail + ': ')
-        str_tmp = str_tmp + ' ' + getpass(fontType.red + 'Password' + fontType.tail + ':(Invisible) ')
+        str_tmp = str_tmp + ' ' + getpass(fontType.red + 'Password' + fontType.tail + '(Invisible): ')
         str_tmp = str_tmp + ' ' + input('1.default\n2.unicom\n3.cmcc\n4.ctcc\n5.local\n'
                                         + fontType.red + 'Communications number' + fontType.tail + ': ')
         open(filePath, 'wb').write(encode(str_tmp))  # 加密后的字符串写入二进制文件
