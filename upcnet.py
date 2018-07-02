@@ -36,15 +36,6 @@ def online():
     except: return False
 
 
-class fontType:  # 控制台字体输出样式
-    underLine = '\033[4m'
-    red = '\033[31m'
-    green = '\033[32m'
-    pink = '\033[36m'
-    tail = '\033[0m'
-    clear = '\033[1A\033[K'
-
-
 class NotRouterError(ValueError): pass
 
 
@@ -112,11 +103,11 @@ def upcnet():
     if not os.path.exists(filePath):
         # print(fontType.red + 'When using for the first time, please complete the imformation first' + fontType.red)
         # 把账号信息压进一个字符串后进行加密
-        str_tmp = input(fontType.red + 'School number' + fontType.tail + ': ')
+        str_tmp = input('School number: ')
         # str_tmp = str_tmp + ' ' + input(fontType.green + 'Password(Invisible)' + fontType.tail + ': ')
-        str_tmp = str_tmp + ' ' + getpass(fontType.red + 'Password' + fontType.tail + '(Invisible): ')
+        str_tmp = str_tmp + ' ' + getpass('Password: (Hidden)')
         str_tmp = str_tmp + ' ' + input('1.default\n2.unicom\n3.cmcc\n4.ctcc\n5.local\n'
-                                        + fontType.red + 'Communications number' + fontType.tail + ': ')
+                                        'Communications number: ')
         open(filePath, 'wb').write(encode(str_tmp))  # 加密后的字符串写入二进制文件
 
     login()
