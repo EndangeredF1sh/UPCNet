@@ -32,8 +32,8 @@ def autoexit(code):
 
 def online():
     try:
-        query = requests.get("http://www.lucien.ink/test", timeout=5)
-        return query.text == 'Hello World!'
+        query = requests.get("http://captive.apple.com", timeout=5)
+        return query.text.find('Success')
     except: return False
 
 
@@ -65,18 +65,14 @@ def login():  # 登录模块
         argParsed = urllib.parse.quote(urllib.parse.urlparse(trueUrl).query)
 
     if argParsed.find('wlanuserip') == -1:
-        if online():
-            print("Already online")  # 已经登录
-            autoexit(0)
+        userIndex = urllib.parse.urlparse(trueUrl).query[10:]
+        if address.find('217'):
+            requests.post("http://121.251.251.217/eportal/InterFace.do?method=logout",
+                          data={'userIndex': userIndex})
         else:
-            userIndex = urllib.parse.urlparse(trueUrl).query[10:]
-            if address.find('217'):
-                requests.post("http://121.251.251.217/eportal/InterFace.do?method=logout",
-                              data={'userIndex': userIndex})
-            else:
-                requests.post("http://121.251.251.207/eportal/InterFace.do?method=logout",
-                              data={'userIndex': userIndex})
-            login()
+            requests.post("http://121.251.251.207/eportal/InterFace.do?method=logout",
+                          data={'userIndex': userIndex})
+        login()
 
     url = address + "/eportal/InterFace.do?method=login"
 
@@ -121,14 +117,19 @@ def main():
             print('Too many args')
             autoexit(1)
 
-        if sys.argv[1] == 'reset':
+        elif sys.argv[1] == 'reset':
             if os.path.exists(filePath):
                 os.remove(filePath)
             print('Reset successful')
             autoexit(0)
 
-        print('Wrong args')
-        autoexit(1)
+        else: 
+            print('Wrong args')
+            autoexit(1)
+
+    elif online():
+            print("Already online")  # 已经登录
+            autoexit(0)
 
     else: upcnet()
 
