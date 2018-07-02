@@ -2,7 +2,7 @@ import requests, urllib, os, base64, time, sys
 from getpass import getpass
 
 
-def getPah():
+def getPath():
     return os.path.split(os.path.realpath(__file__))[0]
 
 
