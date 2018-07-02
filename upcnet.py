@@ -1,7 +1,6 @@
 import requests, urllib, os, base64, time, sys
 from getpass import getpass
 
-
 # 全局变量
 filePath = os.path.split(os.path.realpath(__file__))[0] + '/config.ini'  # 加密后的账号密码储存在根目录下
 argParsed = ""
@@ -10,10 +9,14 @@ trueUrl = ""
 
 
 def servicechoose(serv):  # 运营商选择
-    if serv == '1': return "default"  # 校园网
-    elif serv == '2': return "unicom"  # 联通
-    elif serv == '3': return "cmcc"  # 移动
-    elif serv == '4': return "ctcc"  # 电信
+    if serv == '1':
+        return "default"  # 校园网
+    elif serv == '2':
+        return "unicom"  # 联通
+    elif serv == '3':
+        return "cmcc"  # 移动
+    elif serv == '4':
+        return "ctcc"  # 电信
     return "local"  # 校园内网
 
 
@@ -32,9 +35,10 @@ def autoexit(code):
 
 def online():
     try:
-        query = requests.get("http://captive.apple.com", timeout=5)
-        return query.text.find('Success')
-    except: return False
+        query = requests.get("http://www.lucien.ink/test", timeout=5)
+        return query.text == 'Hello World!'
+    except:
+        return False
 
 
 class NotRouterError(ValueError): pass
@@ -42,6 +46,7 @@ class NotRouterError(ValueError): pass
 
 def login():  # 登录模块
     global argParsed, trueText, trueUrl
+    argParsed = trueText = trueUrl = ""
     address = "http://121.251.251.207"  # 默认尝试进行有线登录
     try:
         trueUrl = requests.post("http://121.251.251.217", allow_redirects=True).url
@@ -93,10 +98,6 @@ def login():  # 登录模块
 
 
 def upcnet():
-    global argParsed, trueText, trueUrl
-    argParsed = ""
-    trueText = ""
-    trueUrl = ""
     if not os.path.exists(filePath):
         # print(fontType.red + 'When using for the first time, please complete the imformation first' + fontType.red)
         # 把账号信息压进一个字符串后进行加密
@@ -107,6 +108,10 @@ def upcnet():
                                         'Communications number: ')
         file = open(filePath, 'wb')
         file.write(encode(str_tmp))  # 加密后的字符串写入二进制文件
+
+    if online():
+        print("Already online")  # 已经登录
+        autoexit(0)
 
     login()
 
@@ -123,15 +128,12 @@ def main():
             print('Reset successful')
             autoexit(0)
 
-        else: 
+        else:
             print('Wrong args')
             autoexit(1)
 
-    elif online():
-            print("Already online")  # 已经登录
-            autoexit(0)
-
-    else: upcnet()
+    else:
+        upcnet()
 
 
 if __name__ == '__main__':
