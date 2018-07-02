@@ -2,7 +2,7 @@ import requests, urllib, os, base64, time, sys
 from getpass import getpass
 
 # 全局变量
-filePath = sys.path[0] + '/config.ini'  # 加密后的账号密码储存在根目录下
+filePath = os.getcwd() + '/config.ini'  # 加密后的账号密码储存在根目录下
 argParsed = ""
 trueText = ""
 trueUrl = ""
@@ -26,7 +26,7 @@ def decode(code):  # 解密
 
 def autoexit(code):
     time.sleep(1)
-    exit(code)
+    sys.exit(code)
 
 
 def online():
@@ -108,7 +108,8 @@ def upcnet():
         str_tmp = str_tmp + ' ' + getpass('Password: (Hidden)')
         str_tmp = str_tmp + ' ' + input('1.default\n2.unicom\n3.cmcc\n4.ctcc\n5.local\n'
                                         'Communications number: ')
-        open(filePath, 'wb').write(encode(str_tmp))  # 加密后的字符串写入二进制文件
+        file = open(filePath, 'wb')
+        file.write(encode(str_tmp))  # 加密后的字符串写入二进制文件
 
     login()
 
@@ -119,16 +120,15 @@ def main():
             print('Too many args')
             autoexit(1)
 
-        if sys.argv[1] == 'reset':
+        elif sys.argv[1] == 'reset':
             if os.path.exists(filePath):
                 os.remove(filePath)
             print('Reset successful')
-            autoexit(0)
 
-        print('Wrong args')
-        autoexit(1)
+        else: print('Wrong args')
+        autoexit(0)
 
-    upcnet()
+    else: upcnet()
 
 
 if __name__ == '__main__':
