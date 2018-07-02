@@ -2,12 +2,8 @@ import requests, urllib, os, base64, time, sys
 from getpass import getpass
 
 
-def getPath():
-    return os.path.split(os.path.realpath(__file__))[0]
-
-
 # 全局变量
-filePath = getPath() + '/config.ini'  # 加密后的账号密码储存在根目录下
+filePath = os.path.split(os.path.realpath(__file__))[0] + '/config.ini'  # 加密后的账号密码储存在根目录下
 argParsed = ""
 trueText = ""
 trueUrl = ""
