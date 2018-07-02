@@ -120,13 +120,14 @@ def main():
             print('Too many args')
             autoexit(1)
 
-        elif sys.argv[1] == 'reset':
+        if sys.argv[1] == 'reset':
             if os.path.exists(filePath):
                 os.remove(filePath)
             print('Reset successful')
+            autoexit(0)
 
-        else: print('Wrong args')
-        autoexit(0)
+        print('Wrong args')
+        autoexit(1)
 
     else: upcnet()
 
