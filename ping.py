@@ -1,3 +1,4 @@
+#/usr/bin/python3
 #!coding:utf-8
 __author__ = 'Rosefinch'
 __date__ = '2018/5/31 22:27'
@@ -69,11 +70,10 @@ def ping(host):
         dst_addr = socket.gethostbyname(host)  # 将主机名转ipv4地址格式，返回以ipv4地址格式的字符串，如果主机名称是ipv4地址，则它将保持不变
     except:
         return False
-    for i in range(0, 4):
+    for i in range(0, 4): # 最多尝试四次
         icmp_packet = request_ping(data_type, data_code, data_checksum, data_id, data_sequence + i, payload_body)
         send_request_ping_time, rawsocket, addr = raw_socket(dst_addr, icmp_packet)
         times = reply_ping(send_request_ping_time, rawsocet, data_sequence + i)
-        if times > 0:
-            return True
-    return False
-
+        if times > 0: # 说明ping通了
+            return True # 只要存在一次ping通就说明有外网
+    return False # 如果四次尝试都ping不通就返回假
