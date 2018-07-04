@@ -1,7 +1,7 @@
 import urllib
 from tools import *
-argParsed = trueText = trueUrl = address = ""
-cntTry = 0
+argParsed = trueText = trueUrl = address = "" # 全局变量
+cntTry = 0 # 当前的尝试次数
 
 
 class NotRouterError(ValueError):
