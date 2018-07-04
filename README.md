@@ -14,9 +14,12 @@ base64
 
 ### upcnet.py
 
-如果根目录下没有账号信息就会要求输入账号密码以及选择运营商，然后会加密后保存在本地的`config.ini`文件中。值得一提的是输入密码时是不可见的，可能大部分Windows用户都不知道。
+如果根目录下没有账号信息就会要求输入账号密码以及选择运营商，然后会加密后保存在本地的`config.ini`文件中，可能需要提醒一下的是输入密码时输入的字符是不可见的。
 
-如果想要删掉保存在本地的账号可以执行`python3 upcnet.py reset`或删除根目录下的`config.ini`。
+```
+python3 upcnet.py reset # 删除config.ini，即本地已有的账号信息
+python3 upcnet.py logout # 退出当前登录的账号
+```
 
 运营商对应编号：
 
