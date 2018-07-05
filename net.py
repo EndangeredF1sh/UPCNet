@@ -35,39 +35,42 @@ def init_net():  # 登录模块
     except requests.exceptions.ChunkedEncodingError:
         cntTry = cntTry + 1
         if cntTry >= 5:
+            print("Please check the network connection or close the login windows")
             return False
-        return login()
+        return init_net()
 
     else:
         argParsed = urllib.parse.quote(urllib.parse.urlparse(trueUrl).query)
 
+    return True
 
 def login():
-    init_net()
-    global argParsed, address
-    if argParsed.find('wlanuserip') == -1:
-        logout()
-        time.sleep(2)
-        return login()
+    if init_net():
+        global argParsed, address
+        if argParsed.find('wlanuserip') == -1:
+            logout()
+            time.sleep(2)
+            return login()
 
-    url = address + "/eportal/InterFace.do?method=login"
+        url = address + "/eportal/InterFace.do?method=login"
 
-    str = decode(open(getpath(), "rb").readline())  # 读取二进制文件并解密
-    userName = str.split(' ')[0]
-    passWord = str.split(' ')[1]
-    service = service_choose(str.split(' ')[2])
+        str = decode(open(getpath(), "rb").readline())  # 读取二进制文件并解密
+        userName = str.split(' ')[0]
+        passWord = str.split(' ')[1]
+        service = service_choose(str.split(' ')[2])
 
-    payload = {'userId': userName, 'password': passWord, 'service': service, 'queryString': argParsed, 'operatorPwd': '', 'operatorUserId': '', 'vaildcode': ''}
-    postMessage = requests.post(url, data=payload)
+        payload = {'userId': userName, 'password': passWord, 'service': service, 'queryString': argParsed, 'operatorPwd': '', 'operatorUserId': '', 'vaildcode': ''}
+        postMessage = requests.post(url, data=payload)
 
-    if postMessage.text.find("success") >= 0: 
-        print("Login success")  # 登录成功
-        return True
+        if postMessage.text.find("success") >= 0:
+            print("Login success")  # 登录成功
+            return True
 
-    else: 
-        print("Something wrong")  # 登录失败
-        return False
+        else:
+            print("Something wrong")  # 登录失败
+            return False
 
+    return False
 
 def logout():
     global trueUrl, address

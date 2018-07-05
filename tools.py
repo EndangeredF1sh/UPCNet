@@ -37,7 +37,10 @@ def getpath():
 
 
 def online():
-    text = requests.get("http://captive.apple.com", allow_redirects=True).text # 对知乎发请求，存储返回值
+    try:
+        text = requests.get("http://captive.apple.com", allow_redirects=True, timeout=5).text # 对苹果发请求
+    except:
+        return False
     return text.find('Success') != -1
 
 
