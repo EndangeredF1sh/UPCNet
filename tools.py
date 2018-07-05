@@ -1,8 +1,10 @@
+#!coding=utf-8
 import base64
 import time
-import sys
 import os
 import requests
+import sys
+from getpass import getpass
 
 
 def service_choose(service):  # 运营商选择
@@ -31,9 +33,20 @@ def autoexit(): # 延时一秒后结束程序
 
 
 def getpath():
-    return os.path.split(os.path.realpath(__file__))[0] + '\config.ini'  # 加密后的账号密码储存在根目录下
+    return os.path.split(os.path.realpath(__file__))[0] + '/config.ini'  # 加密后的账号密码储存在根目录下
 
 
-def online(): # （已弃用）测试当前是否有外网
-    text = requests.get("https://api.zhihu.com/test", allow_redirects=True).text # 对知乎发请求，存储返回值
-    return text.find('400') != -1
+def online():
+    text = requests.get("http://captive.apple.com", allow_redirects=True).text # 对知乎发请求，存储返回值
+    return text.find('Success') != -1
+
+
+def config_init():
+    file_path = getpath()
+    if not os.path.exists(file_path):
+        str_tmp = input('School number: ')
+        str_tmp = str_tmp + ' ' + getpass('Password: (Hidden)')
+        str_tmp = str_tmp + ' ' + input('1.default\n2.unicom\n3.cmcc\n4.ctcc\n5.local\nCommunications number: ')
+        file = open(file_path, 'wb')
+        file.write(encode(str_tmp))  # 加密后的字符串写入二进制文件
+

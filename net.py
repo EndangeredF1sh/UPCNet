@@ -1,3 +1,4 @@
+#!coding=utf-8
 import urllib
 from tools import *
 argParsed = trueText = trueUrl = address = "" # 全局变量
@@ -8,7 +9,7 @@ class NotRouterError(ValueError):
     pass
 
 
-def init():  # 登录模块
+def init_net():  # 登录模块
     global argParsed, trueText, trueUrl, cntTry, address
     argParsed = trueText = trueUrl = ""
     address = "http://121.251.251.207"  # 默认尝试进行有线登录
@@ -27,7 +28,8 @@ def init():  # 登录模块
 
     except NotRouterError:
         address = "http://121.251.251.217/"
-        pIndex = requests.get(address, allow_rdirects=True).text.find('wlanuserip')
+        pIndex = trueText.find('wlanuserip')
+        # pIndex = requests.get(address, allow_rdirects=True).text.find('wlanuserip')
         argParsed = urllib.parse.quote(trueText[pIndex:])
 
     except requests.exceptions.ChunkedEncodingError:
@@ -41,7 +43,7 @@ def init():  # 登录模块
 
 
 def login():
-    init()
+    init_net()
     global argParsed, address
     if argParsed.find('wlanuserip') == -1:
         logout()
