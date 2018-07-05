@@ -34,9 +34,11 @@ def autoexit(): # 延时一秒后结束程序
 
 
 def getpath():
-    path = os.path.split(os.path.realpath(__file__))[0] + "/config.ini"
-    if os.name == 'nt':
-        path.replace("/", "\\");
+    path = os.path.split(os.path.realpath(__file__))[0]
+    if os.name == "nt":
+        path = path + "\\config.ini"
+    else:
+        path = path + "/config.ini"
     return path # 加密后的账号密码储存在根目录下
 
 
