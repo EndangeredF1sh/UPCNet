@@ -35,14 +35,14 @@ def autoexit(): # 延时一秒后结束程序
 
 def getpath(): # 返回账号密码的存储路径
     if os.name == "nt":
-        path = "C:\\UPCNet"
+        path = os.environ['SYSTEMROOT'][:3] + "UPCNet"
         if not os.path.exists(path):
             os.makedirs(path)
-        return path + "\\config.ini" # Windows存在C盘
+        return path + "\\config.ini" # Windows返回C盘
 
     else:
         path = os.path.split(os.path.realpath(__file__))[0]
-        return path + "/config.ini" # Linux存在脚本根目录下
+        return path + "/config.ini" # Linux返回脚本根目录
 
 
 def online():
