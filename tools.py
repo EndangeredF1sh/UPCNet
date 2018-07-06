@@ -33,21 +33,24 @@ def autoexit(): # 延时一秒后结束程序
     sys.exit()
 
 
-def getpath():
-    path = os.path.split(os.path.realpath(__file__))[0]
+def getpath(): # 返回账号密码的存储路径
     if os.name == "nt":
-        path = path + "\\config.ini"
+        path = "C:\\UPCNet"
+        if not os.path.exists(path):
+            os.makedirs(path)
+        return path + "\\config.ini" # Windows存在C盘
+
     else:
-        path = path + "/config.ini"
-    return path # 加密后的账号密码储存在根目录下
+        path = os.path.split(os.path.realpath(__file__))[0]
+        return path + "/config.ini" # Linux存在脚本根目录下
 
 
 def online():
     try:
-        text = requests.get("http://captive.apple.com", allow_redirects=True, timeout=5).text # 对苹果发请求
+        text = requests.get("http://acm.upc.edu.cn/404.", allow_redirects=True, timeout=5).text
     except:
         return False
-    return text.find('Success') != -1
+    return text.find('404') != -1
 
 
 def config_init():
