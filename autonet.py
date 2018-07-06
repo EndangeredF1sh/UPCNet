@@ -3,6 +3,7 @@ import urllib
 import os
 import time
 import base64
+import sys
 def service_choose(serv):  # 运营商选择
     if serv == '1': return "default"  # 校园网
     elif serv == '2': return "unicom"  # 联通
@@ -15,7 +16,7 @@ def decode(code):  # 解密
 
 def autoexit():
     time.sleep(1)
-    exit(0)
+    sys.exit(0)
 
 class NotRouterError(ValueError):
     pass
