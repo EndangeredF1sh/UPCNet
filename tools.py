@@ -35,7 +35,7 @@ def autoexit(): # 延时一秒后结束程序
 
 def getpath(): # 返回账号密码的存储路径
     if os.name == "nt":
-        path = os.environ['SYSTEMROOT'][:3] + "UPCNet"
+        path = os.environ['ALLUSERSPROFILE'] + "\\UPCNet"
         if not os.path.exists(path):
             os.makedirs(path)
         return path + "\\config.ini" # Windows返回C盘
