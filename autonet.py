@@ -22,23 +22,13 @@ class NotRouterError(ValueError):
 
 def login():  # 登录模块
     argParsed = ""
-    address = "http://121.251.251.207"  # 默认尝试进行有线登录
     try:
-        trueUrl = requests.post("http://121.251.251.217", allow_redirects=True).url
-        trueText = requests.get("http://121.251.251.217", allow_redirects=True).text
-
-        if trueText.find("http://121.251.251.217") > 0 and trueUrl.find("http://www.upc.edu.cn") == 0:
-            raise NotRouterError()
+        trueUrl = requests.post("http://121.251.251.207", allow_redirects=True).url
 
     except requests.exceptions.ConnectionError:
         # macOS的登录界面会阻断网络连接
         print("Please check the network connection or close the login windows")
         autoexit()
-
-    except NotRouterError:
-        address = "http://121.251.251.217/"
-        pIndex = requests.get(address, allow_redirects=True).text.find('wlanuserip')
-        argParsed = urllib.parse.quote(trueText[pIndex:])
 
     else:
         argParsed = urllib.parse.quote(urllib.parse.urlparse(trueUrl).query)
@@ -47,7 +37,7 @@ def login():  # 登录模块
         print("Already online")  # 已经登录
         autoexit()
 
-    url = address + "/eportal/InterFace.do?method=login"
+    url = "http://121.251.251.207/eportal/InterFace.do?method=login"
 
     path = os.path.split(os.path.realpath(__file__))[0]
     if (os.name == 'nt'):
