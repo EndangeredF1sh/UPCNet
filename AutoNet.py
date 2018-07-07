@@ -29,10 +29,10 @@ def decode(code):  # 解密
 
 def getpath():  # 返回账号密码的存储路径
     path = os.path.split(os.path.realpath(__file__))[0]  # 脚本根目录
-    if os.name == "nt":
-        return path + "\\config.ini"  # Windows
-    else:
-        return path + "/config.ini"  # Linux
+    if os.name == "nt":  # Windows
+        return path + "\\config.ini"  
+    else:  # Linux
+        return path + "/config.ini"
 
 
 def config_init():
