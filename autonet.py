@@ -10,11 +10,11 @@ from getpass import getpass
 def service_choose(serv):  # 运营商选择
     if serv == '1':
         return "default"  # 校园网
-    elif serv == '2':
+    if serv == '2':
         return "unicom"  # 联通
-    elif serv == '3':
+    if serv == '3':
         return "cmcc"  # 移动
-    elif serv == '4':
+    if serv == '4':
         return "ctcc"  # 电信
     return "local"  # 校园内网
 
