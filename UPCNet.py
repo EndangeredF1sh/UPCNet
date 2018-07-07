@@ -77,7 +77,6 @@ def init_net():  # 登录模块
         trueUrl = requests.post("http://121.251.251.217", allow_redirects=True).url
         trueText = requests.get("http://121.251.251.217", allow_redirects=True).text
 
-        # if trueText.find("http://121.251.251.217") > 0 and trueUrl.find("http://www.upc.edu.cn") == 0:
         if trueText.find("http://121.251.251.217") > 0:
             raise NotRouterError()
 
@@ -88,7 +87,6 @@ def init_net():  # 登录模块
     except NotRouterError:
         address = "http://121.251.251.217/"
         p_index = trueText.find('wlanuserip')
-        # p_index = requests.get(address, allow_rdirects=True).text.find('wlanuserip')
         arg_parsed = urllib.parse.quote(trueText[p_index:])
 
     except requests.exceptions.ChunkedEncodingError:
