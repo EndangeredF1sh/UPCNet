@@ -10,11 +10,11 @@ from getpass import getpass
 def service_choose(serv):  # 运营商选择
     if serv == '1':
         return "default"  # 校园网
-    if serv == '2':
+    elif serv == '2':
         return "unicom"  # 联通
-    if serv == '3':
+    elif serv == '3':
         return "cmcc"  # 移动
-    if serv == '4':
+    elif serv == '4':
         return "ctcc"  # 电信
     return "local"  # 校园内网
 
@@ -61,14 +61,14 @@ def login():  # 登录模块
 
     except requests.exceptions.ConnectionError:
         print("Please check the network connection or close the login windows")
-        autoexit()
+        return False
 
     else:
         argParsed = urllib.parse.quote(urllib.parse.urlparse(trueUrl).query)
 
     if argParsed.find('wlanuserip') == -1:
         print("Already online")  # 已经登录
-        autoexit()
+        return True
 
     url = "http://121.251.251.207/eportal/InterFace.do?method=login"
 
@@ -83,11 +83,13 @@ def login():  # 登录模块
 
     if postMessage.text.find("success") >= 0:
         print("Login success")  # 登录成功
+        return True
     else:
         print("Something wrong")  # 登录失败
-    autoexit()
+        return False
 
 
 if __name__ == "__main__":
     config_init()
     login()
+    autoexit()
