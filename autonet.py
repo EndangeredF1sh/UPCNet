@@ -4,30 +4,62 @@ import os
 import time
 import base64
 import sys
+from getpass import getpass
+
+
 def service_choose(serv):  # 运营商选择
-    if serv == '1': return "default"  # 校园网
-    elif serv == '2': return "unicom"  # 联通
-    elif serv == '3': return "cmcc"  # 移动
-    elif serv == '4': return "ctcc"  # 电信
+    if serv == '1':
+        return "default"  # 校园网
+    elif serv == '2':
+        return "unicom"  # 联通
+    elif serv == '3':
+        return "cmcc"  # 移动
+    elif serv == '4':
+        return "ctcc"  # 电信
     return "local"  # 校园内网
+
+
+def encode(string):  # 加密
+    return base64.encodebytes(str.encode(string, 'utf-8'))
+
 
 def decode(code):  # 解密
     return bytes.decode(base64.decodebytes(code), 'utf-8')
+
+
+def getpath():  # 返回账号密码的存储路径
+    path = os.path.split(os.path.realpath(__file__))[0]  # 脚本根目录
+    if os.name == "nt":
+        return path + "\\config.ini"  # Windows
+    else:
+        return path + "/config.ini"  # Linux
+
+
+def config_init():
+    file_path = getpath()
+    if not os.path.exists(file_path):
+        str_tmp = input('School number: ')
+        str_tmp = str_tmp + ' ' + getpass('Password: (Hidden)')
+        str_tmp = str_tmp + ' ' + input('1.default\n2.unicom\n3.cmcc\n4.ctcc\n5.local\nCommunications number: ')
+        file = open(file_path, 'wb')
+        file.write(encode(str_tmp))  # 加密后的字符串写入二进制文件
+
 
 def autoexit():
     time.sleep(1)
     sys.exit(0)
 
+
 class NotRouterError(ValueError):
     pass
+
 
 def login():  # 登录模块
     argParsed = ""
     try:
-        trueUrl = requests.post("http://121.251.251.207", allow_redirects=True).url
+        trueUrl = requests.post("http://www.baidu.com", allow_redirects=True).url
 
     except requests.exceptions.ConnectionError:
-        # macOS的登录界面会阻断网络连接
         print("Please check the network connection or close the login windows")
         autoexit()
 
@@ -40,13 +72,7 @@ def login():  # 登录模块
 
     url = "http://121.251.251.207/eportal/InterFace.do?method=login"
 
-    path = os.path.split(os.path.realpath(__file__))[0]
-    if (os.name == 'nt'):
-        path = path + "\\config.ini"
-    else:
-        path = path + "/config.ini"
-
-    str = decode(open(path, "rb").readline())  # 读取二进制文件并解密
+    str = decode(open(getpath(), "rb").readline())  # 读取二进制文件并解密
     userName = str.split(' ')[0]
     passWord = str.split(' ')[1]
     service = service_choose(str.split(' ')[2])
@@ -55,8 +81,13 @@ def login():  # 登录模块
                'operatorPwd': '', 'operatorUserId': '', 'vaildcode': ''}
     postMessage = requests.post(url, data=payload)
 
-    if postMessage.text.find("success") >= 0: print("Login success")  # 登录成功
-    else: print("Something wrong")  # 登录失败
+    if postMessage.text.find("success") >= 0:
+        print("Login success")  # 登录成功
+    else:
+        print("Something wrong")  # 登录失败
     autoexit()
 
-login()
+
+if __name__ == "__main__":
+    config_init()
+    login()
