@@ -60,7 +60,7 @@ def config_init():
         file.write(encode(str_tmp))  # 加密后的字符串写入二进制文件
 
 
-argParsed = trueText = trueUrl = address = ""  # 全局变量
+arg_parsed = trueText = trueUrl = address = ""  # 全局变量
 cntTry = 0  # 当前的尝试次数
 
 
@@ -69,8 +69,8 @@ class NotRouterError(ValueError):
 
 
 def init_net():  # 登录模块
-    global argParsed, trueText, trueUrl, cntTry, address
-    argParsed = trueText = trueUrl = ""
+    global arg_parsed, trueText, trueUrl, cntTry, address
+    arg_parsed = trueText = trueUrl = ""
     address = "http://121.251.251.207"  # 默认尝试进行有线登录
 
     try:
@@ -87,9 +87,9 @@ def init_net():  # 登录模块
 
     except NotRouterError:
         address = "http://121.251.251.217/"
-        pIndex = trueText.find('wlanuserip')
-        # pIndex = requests.get(address, allow_rdirects=True).text.find('wlanuserip')
-        argParsed = urllib.parse.quote(trueText[pIndex:])
+        p_index = trueText.find('wlanuserip')
+        # p_index = requests.get(address, allow_rdirects=True).text.find('wlanuserip')
+        arg_parsed = urllib.parse.quote(trueText[p_index:])
 
     except requests.exceptions.ChunkedEncodingError:
         cntTry = cntTry + 1
@@ -99,15 +99,15 @@ def init_net():  # 登录模块
         return init_net()
 
     else:
-        argParsed = urllib.parse.quote(urllib.parse.urlparse(trueUrl).query)
+        arg_parsed = urllib.parse.quote(urllib.parse.urlparse(trueUrl).query)
 
     return True
 
 
 def login():
     if init_net():
-        global argParsed, address
-        if argParsed.find('wlanuserip') == -1:
+        global arg_parsed, address
+        if arg_parsed.find('wlanuserip') == -1:
             logout()
             time.sleep(2)
             return login()
@@ -119,7 +119,7 @@ def login():
         passWord = str.split(' ')[1]
         service = service_choose(str.split(' ')[2])
 
-        payload = {'userId': userName, 'password': passWord, 'service': service, 'queryString': argParsed,
+        payload = {'userId': userName, 'password': passWord, 'service': service, 'queryString': arg_parsed,
                    'operatorPwd': '', 'operatorUserId': '', 'vaildcode': ''}
         postMessage = requests.post(url, data=payload)
 
@@ -171,3 +171,5 @@ if __name__ == '__main__':
 
         else:
             login()
+
+    autoexit()
