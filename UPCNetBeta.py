@@ -61,7 +61,7 @@ def init_net():  # 登录模块
     arg_parsed = text = ""
 
     try:
-        text = requests.get("http://captive.apple.com", allow_redirects=True).text
+        text = requests.get("http://captive.lucien.ink", allow_redirects=True).text
 
     except:
         cnt_try = cnt_try + 1
@@ -70,20 +70,19 @@ def init_net():  # 登录模块
             return False
         time.sleep(1)
         return init_net()
-
-    if text.find("Success") > 0:
+    # print(text)
+    if ~text.find("Hello"):
         print("Currently online")
         return False
 
     else:
-
         if ~text.find("121.251.251.217"):
             address = "http://121.251.251.217"
             arg_parsed = urllib.parse.quote(text[text.find('wlanuserip'):])
 
         else:
             address = "http://121.251.251.207"
-            arg_parsed = urllib.parse.quote(urllib.parse.urlparse("http://www.upc.edu.cn").query)
+            arg_parsed = urllib.parse.quote(urllib.parse.urlparse(requests.post("http://captive.lucien.ink", allow_redirects=True).url).query)
 
     return True
 
@@ -93,6 +92,11 @@ def login():
         global arg_parsed, address
         if not ~arg_parsed.find('wlanuserip'):
             logout()
+            global cnt_try
+            cnt_try = cnt_try + 1
+            if cnt_try >= 5:
+                print("Please check the network connection or close the login windows")
+                return False
             time.sleep(1)
             return login()
 
