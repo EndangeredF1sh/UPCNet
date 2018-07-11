@@ -70,7 +70,7 @@ def init_net():  # 登录模块
             return False
         time.sleep(1)
         return init_net()
-    # print(text)
+
     if ~text.find("Hello"):
         print("Currently online")
         return False
