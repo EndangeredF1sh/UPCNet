@@ -56,12 +56,30 @@ arg_parsed = text = address = ""  # 全局变量
 cnt_try = 0  # 当前的尝试次数
 
 
-def init_net():  # 登录模块
+def judge():
+    try:
+        text = requests.get("http://captive.lucien.ink", allow_redirects=True, timeout=3).text
+    except:
+        return 0  # 超时，当前无外网
+    if ~text.find("Hello"):
+        return 1  # 当前有外网
+    if ~text.find("121.251.251.207"):
+        return 207
+    if ~text.find("121.251.251.217"):
+        return 217
+    return 0
+
+
+def init_net(judgeCode):  # 登录模块
     global arg_parsed, text, cnt_try, address
     arg_parsed = text = ""
 
+    address = "http://121.251.251.207"
+    if judgeCode == 217:
+        address = "http://121.251.251.217"
+
     try:
-        text = requests.get("http://captive.lucien.ink", allow_redirects=True).text
+        text = requests.get(address, allow_redirects=True).text
 
     except:
         cnt_try = cnt_try + 1
@@ -69,11 +87,7 @@ def init_net():  # 登录模块
             print("Please check the network connection or close the login windows")
             return False
         time.sleep(1)
-        return init_net()
-
-    if ~text.find("Hello"):
-        print("Currently online")
-        return False
+        return init_net(judgeCode)
 
     else:
         if ~text.find("121.251.251.217"):
@@ -82,13 +96,17 @@ def init_net():  # 登录模块
 
         else:
             address = "http://121.251.251.207"
-            arg_parsed = urllib.parse.quote(urllib.parse.urlparse(requests.post("http://captive.lucien.ink", allow_redirects=True).url).query)
+            arg_parsed = urllib.parse.quote(urllib.parse.urlparse(requests.post("http://121.251.251.207", allow_redirects=True).url).query)
 
     return True
 
 
 def login():
-    if init_net():
+    judgeCode = judge()
+    if judgeCode == 1:
+        print("Currently online")
+        return False
+    if init_net(judgeCode):
         global arg_parsed, address
         if not ~arg_parsed.find('wlanuserip'):
             logout()
@@ -102,9 +120,14 @@ def login():
 
         buf = decode(open(getpath(), "rb").readline())  # 读取二进制文件并解密
 
-        payload = {'userId': buf.split(' ')[0], 'password': buf.split(' ')[1],
-                   'service': service_choose(buf.split(' ')[2]), 'queryString': arg_parsed,
-                   'operatorPwd': '', 'operatorUserId': '', 'vaildcode': ''}
+        payload = {'userId': buf.split(' ')[0],
+                   'password': buf.split(' ')[1],
+                   'service': service_choose(buf.split(' ')[2]),
+                   'queryString': arg_parsed,
+                   'operatorPwd': '',
+                   'operatorUserId': '',
+                   'vaildcode': '',
+                   'passwordEncrypt': 'false'}
         post_message = requests.post(address + "/eportal/InterFace.do?method=login", data=payload)
 
         if post_message.text.find("success") >= 0:
@@ -119,9 +142,10 @@ def login():
 
 
 def logout():
+    init_net(judge())
     try:
-        requests.post("http://121.251.251.207/eportal/InterFace.do?method=logout")
-        requests.post("http://121.251.251.217/eportal/InterFace.do?method=logout")
+        userIndex = arg_parsed[12:]
+        requests.post(address + "/eportal/InterFace.do?method=logout", data={'userIndex': userIndex})
 
     except:
         print("Logout failed")
