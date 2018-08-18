@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# !coding=utf-8
+#!coding=utf-8
 import urllib
 import base64
 import time
@@ -52,34 +52,27 @@ def config_init():
         file.write(encode(str_tmp))  # 加密后的字符串写入二进制文件
 
 
-arg_parsed = text = address = ""  # 全局变量
+def online():
+    try:
+        url = requests.get("http://captive.lucien.ink", allow_redirects=True, timeout=3).url
+    except:
+        return False  # 超时，当前无外网
+    if ~url.find("https://www.lucien.ink"):
+        return True  # 当前有外网
+    return False
+
+
+arg_parsed = url = address = ""  # 全局变量
 cnt_try = 0  # 当前的尝试次数
 
 
-def judge():
-    try:
-        text = requests.get("http://captive.lucien.ink", allow_redirects=True, timeout=3).text
-    except:
-        return 0  # 超时，当前无外网
-    if ~text.find("Hello"):
-        return 1  # 当前有外网
-    if ~text.find("121.251.251.207"):
-        return 207
-    if ~text.find("121.251.251.217"):
-        return 217
-    return 0
-
-
-def init_net(judgeCode):  # 登录模块
-    global arg_parsed, text, cnt_try, address
-    arg_parsed = text = ""
-
+def init_net():  # 登录模块
+    global arg_parsed, url, cnt_try, address
+    arg_parsed = url = ""
     address = "http://121.251.251.207"
-    if judgeCode == 217:
-        address = "http://121.251.251.217"
 
     try:
-        text = requests.get(address, allow_redirects=True).text
+        url = requests.get(address, allow_redirects=True, timeout=3).url
 
     except:
         cnt_try = cnt_try + 1
@@ -87,28 +80,28 @@ def init_net(judgeCode):  # 登录模块
             print("Please check the network connection or close the login windows")
             return False
         time.sleep(1)
-        return init_net(judgeCode)
+        return init_net()
 
     else:
-        if ~text.find("121.251.251.217"):
+        if ~url.find("121.251.251.217"):
             address = "http://121.251.251.217"
-            arg_parsed = urllib.parse.quote(text[text.find('wlanuserip'):])
+            arg_parsed = urllib.parse.quote(url[url.find('wlanuserip'):])
 
         else:
             address = "http://121.251.251.207"
-            arg_parsed = urllib.parse.quote(urllib.parse.urlparse(requests.post("http://121.251.251.207", allow_redirects=True).url).query)
+            buf = requests.post("http://121.251.251.207", allow_redirects=True).url
+            arg_parsed = urllib.parse.quote(urllib.parse.urlparse(buf).query)
 
     return True
 
 
 def login():
-    judgeCode = judge()
-    if judgeCode == 1:
+    if online():
         print("Currently online")
         return False
-    if init_net(judgeCode):
-        global arg_parsed, address
-        if not ~arg_parsed.find('wlanuserip'):
+    if init_net():
+        global arg_parsed, address, url
+        if ~url.find('success'):
             logout()
             global cnt_try
             cnt_try = cnt_try + 1
@@ -130,7 +123,7 @@ def login():
                    'passwordEncrypt': 'false'}
         post_message = requests.post(address + "/eportal/InterFace.do?method=login", data=payload)
 
-        if post_message.text.find("success") >= 0:
+        if post_message.text.find("success") >= 0 and online():
             print("Login success")  # 登录成功
             return True
 
@@ -142,16 +135,19 @@ def login():
 
 
 def logout():
-    init_net(judge())
+    init_net()
     try:
-        userIndex = arg_parsed[12:]
+        userIndex = arg_parsed[arg_parsed.find("%3D") + 3:]
         requests.post(address + "/eportal/InterFace.do?method=logout", data={'userIndex': userIndex})
 
     except:
         print("Logout failed")
 
     else:
-        print("Logout success")
+        if online():
+            print("Logout failed")
+        else:
+            print("Logout success")
 
 
 if __name__ == '__main__':
