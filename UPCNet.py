@@ -69,10 +69,10 @@ cnt_try = 0  # 当前的尝试次数
 def init_net():  # 登录模块
     global arg_parsed, url, cnt_try, address
     arg_parsed = url = ""
-    address = "http://121.251.251.207"
+    address = "http://121.251.251.217"
 
     try:
-        url = requests.get(address, allow_redirects=True, timeout=3).url
+        url = requests.get(address, allow_redirects=True, timeout=3).text
 
     except:
         cnt_try = cnt_try + 1
@@ -134,11 +134,20 @@ def login():
     return False
 
 
-def logout():
-    init_net()
+def out(address):
     try:
-        userIndex = arg_parsed[arg_parsed.find("%3D") + 3:]
-        requests.post(address + "/eportal/InterFace.do?method=logout", data={'userIndex': userIndex})
+        url = requests.get(address, allow_redirects=True, timeout=3).url
+        if ~url.find("userIndex="):
+            userIndex = url[url.find("userIndex=") + 10:]
+            requests.post(address + "/eportal/InterFace.do?method=logout", data={'userIndex': userIndex})
+    except:
+        return
+
+
+def logout():
+    try:
+        out("http://121.251.251.217")
+        out("http://121.251.251.207")
 
     except:
         print("Logout failed")
