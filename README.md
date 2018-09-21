@@ -1,39 +1,48 @@
 # 中国石油大学（华东）校园网络认证脚本
 
-### 依赖
-本脚本采用Python3编写，依赖于
-````
-Requests
+
+## 源码依赖
+采用Python3编写，依赖于
+
+```
+requests
 urllib/urllib.parse
-getpass
-````
+base64
+```
 
-### 使用方法
-输入数字石大用户名和密码，选择运营商后即可自动认证，支持设备下线（根据提示输入即可）
+## 使用方法
 
-可自动判别登录情况，引导用户交互。
+### upcnet.py
 
+如果根目录下没有账号信息就会要求输入账号密码以及选择运营商，然后会加密后保存在本地的`config.ini`文件中，可能需要提醒一下的是输入密码时输入的字符是不可见的。
 
-### 目前支持的网络类型：
-````
-有线网络（认证IP地址:121.251.251.207)
+```
+python3 upcnet.py reset # 删除config.ini，即本地已有的账号信息
+python3 upcnet.py logout # 退出当前登录的账号
+```
 
-无线网络(SSID: UPC, 认证IP地址:121.251.251.217)
+运营商对应编号：
 
-802.1X网络无需使用本脚本
+```
+1.校园网
+2.联通
+3.移动
+4.电信
+5.校园内网
+```
 
-````
+## 目前支持的网络类型：
 
-用户信息显示等功能请等待后续更新 (逃
+理论上支持所有锐捷`eportal`认证。
 
-测试环境为macOS 10.13.1 其他系统未测试
-### 版权信息
-````
-Author：EndangeredFish
+## 版权信息
 
-Email: zwy346545141@gmail.com
+```
+Author：LucienShui
 
-First Commit Date:  Monday,13 Nov 2017 
+From：EndangeredFish
+```
 
-LICENSE: AGPLv3
-````
+## 鸣谢
+
+[EndangeredFish](https://github.com/EndangeredF1sh)
