@@ -1,6 +1,0 @@
-config.ini
-.*
-*.sh
-__*
-log*
-.idea
