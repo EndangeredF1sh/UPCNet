@@ -38,9 +38,7 @@ python3 upcnet.py logout # 退出当前登录的账号
 
 ## 版权信息
 
-```
-
 Author: [EndangeredFish](https://github.com/EndangeredF1sh)
+
 Refactor: [LucienShui](https://github.com/LucienShui)
 
-```
