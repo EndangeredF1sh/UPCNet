@@ -6,6 +6,10 @@
 Requests
 urllib/urllib.parse
 ````
+快速安装依赖
+```
+pip install -r requirements.txt
+```
 
 ### 使用方法
 在config.py文件下输入学号、密码和运营商编号，然后运行
