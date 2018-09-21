@@ -17,6 +17,7 @@ base64
 如果根目录下没有账号信息就会要求输入账号密码以及选择运营商，然后会加密后保存在本地的`config.ini`文件中，可能需要提醒一下的是输入密码时输入的字符是不可见的。
 
 ```
+python3 upcnet.py # 初次使用，初始化参数
 python3 upcnet.py reset # 删除config.ini，即本地已有的账号信息
 python3 upcnet.py logout # 退出当前登录的账号
 ```
@@ -38,11 +39,8 @@ python3 upcnet.py logout # 退出当前登录的账号
 ## 版权信息
 
 ```
-Author：LucienShui
 
-From：EndangeredFish
+Author: [EndangeredFish](https://github.com/EndangeredF1sh)
+Refactor: [LucienShui](https://github.com/LucienShui)
+
 ```
-
-## 鸣谢
-
-[EndangeredFish](https://github.com/EndangeredF1sh)
