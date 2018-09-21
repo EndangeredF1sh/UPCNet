@@ -1,75 +1,33 @@
-# -*- encoding: utf8-*-
+# -*- coding:utf-8 -*-
 import requests
 import urllib
-import getpass
 from urllib.parse import urlparse
 from config import username
 from config import password
 from config import serv
-
-
-class NotRouterError(ValueError):
-    pass
-
-
-# def servicechoose(serv):
-#     try:
-#         if serv == '1':
-#             return "default"
-#         elif serv == '2':
-#             return "unicom"
-#         elif serv == '3':
-#             return "cmcc"
-#         elif serv == '4':
-#             return "ctcc"
-#         elif serv == '5':
-#             return "local"
-#         else:
-#             print("Input failed!")
-#     except Exception:
-#         print("输入类型有误！请重新运行程序")
-#         exit(1)
-#
-
+url = ""
 argParsed = ""
-address = "http://121.251.251.207"
+address = "http://121.251.251.217"
+magic_word = "/&userlocation=ethtrunk/62:3501.0"
+lan_special_domain = "http://lan.upc.edu.cn"
+login_parameter = "/eportal/InterFace.do?method=login"
 try:
-    trueUrl = requests.post("http://121.251.251.217", allow_redirects=True).url
-    trueText = requests.get("http://121.251.251.217", allow_redirects=True).text
-    # print(trueUrl)
-    # print(trueText)
-    if trueText.find("http://121.251.251.217") > 0 and trueUrl.find("http://www.upc.edu.cn") == 0:
-        raise NotRouterError()
+    trueText = requests.get(address + magic_word, allow_redirects=True).text
+    trueUrl = requests.post(address + magic_word, allow_redirects=True).url
+    url = lan_special_domain+login_parameter
+    if trueText.find("Error report") > -1:
+        trueUrl = requests.post("http://121.251.251.207" + magic_word, allow_redirects=True).url  # 特殊处理
+        url = address + login_parameter
+    argParsed = urllib.parse.quote(urlparse(trueUrl).query)
+    if argParsed.find('wlanuserip') == -1:
+        print("你已经登录！")
+        exit(0)
 except requests.exceptions.ConnectionError:
     print("网络连接故障,请检查你的网络连接或关闭系统弹出认证窗口！")
     exit(-1)
-except NotRouterError:
-    address = "http://121.251.251.217/"
-    pIndex = requests.get(address, allow_redirects=True).text.find('wlanuserip')
-    argParsed = urllib.parse.quote(trueText[pIndex:])
-    print("你连接的是UPC热点!")
 
-else:
-    argParsed = urllib.parse.quote(urlparse(trueUrl).query)
-
-if argParsed.find('wlanuserip') == -1:
-    print("你已经登录！")
-    # userIndex = urlparse(trueUrl).query[10:]
-    # if input("输入0退出登录，其他输入则忽略: ") == '0':
-    #     requests.post("http://121.251.251.217/eportal/InterFace.do?method=logout", data={'userIndex': userIndex})
-    #     requests.post("http://121.251.251.207/eportal/InterFace.do?method=logout", data={'userIndex': userIndex})
-    #     print("退出成功！")
-    #     exit(0)
-    # else:
-    #     print("保持登录！")
-    #     exit(0)
-url = address+"/eportal/InterFace.do?method=login"
-userName = username
-passWord = password
-service = serv
-payload = {'userId': userName, 'password': passWord, 'service': service, 'queryString': argParsed, 'operatorPwd': '', 'operatorUserId': '', 'vaildcode': ''}
+payload = {'userId': username, 'password': password, 'service': serv, 'queryString': argParsed, 'operatorPwd': '', 'operatorUserId': '', 'vaildcode': '', 'passwordEncrypt': 'false'}
 postMessage = requests.post(url, data=payload)
-# print(postMessage.text)
 if postMessage.text.find("success") >= 0:
     print("登陆成功")
 else:
