@@ -1,5 +1,8 @@
 # 中国石油大学（华东）校园网络认证脚本
 
+![飞天面条教保佑你的代码](https://cdn.rawgit.com/LunaGao/BlessYourCodeTag/master/tags/ramen.svg)
+
+
 ### 依赖
 本脚本采用Python3编写，依赖于
 ````
