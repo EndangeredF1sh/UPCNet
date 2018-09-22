@@ -3,14 +3,14 @@
 ### 运行环境
 本程序采用Java编写，开发JDK版本为1.8，JRE版本等于或高于1.8均可运行。
 
-#### 依赖
+#### JDK调用
 主要依赖Java I/O库中的函数实现文件加载和网络流的格式化，并使用`java.net`中一些网络访问的相关方法，此外，借助Scanner实现文件的格式化读取。
 
 ```java
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Scanner;
+java.io.*;
+java.net.HttpURLConnection;
+java.net.URL;
+java.util.Scanner;
 ```
 
 ### 使用方法
