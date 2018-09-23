@@ -43,10 +43,15 @@ public class NetAuth {
             System.err.println("似乎您已经成功登录，再看看？");
             System.exit(0);
         } else {
-            String identity = getURL.substring(getURL.indexOf(".jsp?") + 5);
-            identity = identity.replaceAll("&", "%2526");
-            identity = identity.replaceAll("=", "%253D");
-            sendPost(identity, number, password, ISP, wiredOrWireless);
+            if (getURL.indexOf("index.jsp") != -1) {
+                String identity = getURL.substring(getURL.indexOf(".jsp?") + 5);
+                identity = identity.replaceAll("&", "%2526");
+                identity = identity.replaceAll("=", "%253D");
+                sendPost(identity, number, password, ISP, wiredOrWireless);
+            } else {
+                System.err.println("似乎您已经成功登录，再看看？");
+                System.exit(0);
+            }
         }
     }
 
