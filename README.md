@@ -50,6 +50,7 @@ local -> 校园内网
 
 ### 测试环境
 ```
+macOS High Sierra 10.13.6 (17G65)
 Windows 10 (Build 17134)
 ```
 
