@@ -1,5 +1,15 @@
 # 中国石油大学（华东）校园网络认证脚本 (Java Version)
 
+### 使用教程
+1. 从[Release](https://github.com/andyliu24/UPCNet/releases "Release")中下载NetAuth.jar
+2. 并在同名文件夹建立config.txt并存入数字石大账号密码
+3. 从控制台（Windows 使用命令提示符/PowerShell，*nix使用终端）执行`java -jar NetAuth.jar`，稍后程序将运行并显示结果。
+
+**注：请保证机器的JRE版本>=1.8！**
+
+#### 程序运行截图
+![](login.png)
+
 ### 运行环境
 本程序采用Java编写，开发JDK版本为1.8，JRE版本等于或高于1.8均可运行。
 
