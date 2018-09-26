@@ -3,9 +3,12 @@
 ### 使用教程
 1. 从[Release](https://github.com/andyliu24/UPCNet/releases "Release")中下载NetAuth.jar
 2. 并在同名文件夹建立config.txt并存入数字石大账号密码
-3. 从控制台（Windows 使用命令提示符/PowerShell，*nix使用终端）执行`java -jar NetAuth.jar`，稍后程序将运行并显示结果。
+3. 从控制台（Windows 使用命令提示符/PowerShell，*nix使用终端）执行`java -jar NetAuth.jar`（登录）、`java -jar NetAuth.jar logout`（退出），稍后程序将运行并显示结果。
 
-**注：请保证机器的JRE版本>=1.8！**
+> **提示 & 注意：**
+- 如果通过控制台传参为logout则为退出当前网络登录，其余参数和置空均为登录！
+- 请保证机器的JRE版本>=1.8！
+
 
 #### 程序运行截图
 ![](login.png)
@@ -23,12 +26,13 @@ java.net.URL;
 java.util.Scanner;
 ```
 
-### 使用方法
-在config.txt文件下输入学号、密码和运营商编号，然后运行即可
+### 参数说明
+
+在config.txt文件写入学号、密码和运营商编号等必要参数，然后运行即可。
 
 **注：无需添加任何用于标识其他内容，直接写学号、密码和运营商代码即可。**
 
-强烈推荐每行一个参数，当然也可以使用空格分隔。
+配置文件强烈推荐每行一个参数，当然也可以使用空格分隔。
 
 运营商对应代码：
 ```
