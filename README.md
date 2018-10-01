@@ -14,10 +14,12 @@ curl:command not found
 ```
 则需自行搜索安装cURL
 
-### 测试环境
+### 操作系统
 ```
-OpenWrt/LEDE等Linux衍生系统(padavan不行，原因待查)
+各Linux发行版
+OpenWrt/LEDE等Linux衍生系统
 ```
+padavan似乎无法兼容（路径不同）。
 
 ### 使用方法
 在UPCNet.sh文件下输入学号(username)、密码(password)和运营商编号(service)，然后运行
