@@ -68,5 +68,7 @@ croncmd="sh ${SHELL_FOLDER}"/UPCNet.sh""
 cronjob="*/1 * * * * $croncmd"
 ( crontab -l | grep -v -F "$croncmd" ; echo "$cronjob" ) | crontab -
 
+sed -i "2a ${croncmd}" /etc/rc.local
+
 echo "Auto Install Finished. Enjoy."
 rm -- "$0"
