@@ -2,6 +2,7 @@
 
 ![飞天面条教保佑你的代码](https://cdn.rawgit.com/LunaGao/BlessYourCodeTag/master/tags/ramen.svg)
 
+[Openwrt及各Linux发行版请点这里](https://github.com/EndangeredF1sh/UPCNet/tree/bash)
 
 ### 依赖
 本脚本采用Python3编写，依赖于
