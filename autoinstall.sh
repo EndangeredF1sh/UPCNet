@@ -1,6 +1,21 @@
-source /etc/os-release
+os_release_path="/etc/os-release"
+openwrt_release_path="/etc/openwrt_release"
 SHELL_FOLDER=$(dirname $(readlink -f "$0"))
-if [[ $ID = "openwrt" ]];then
+if [ -f "$os_release_path" ];then
+	source /etc/os-release
+else
+	if [ -f "$openwrt_release_path" ];then
+		ID="openwrt"
+	fi
+fi
+	
+if [[ $ID != "openwrt" ]];then
+	read -r -p "Mismatch Operation System Detected, Are you sure to install? [Y/n] " response
+	if [[ $response != "y" && $response != "Y" ]];then
+		exit 0
+	fi
+fi
+
 echo "Auto install start ..."
 opkg update
 opkg install curl
@@ -55,4 +70,3 @@ cronjob="*/1 * * * * $croncmd"
 
 echo "Auto Install Finished. Enjoy."
 rm -- "$0"
-fi
