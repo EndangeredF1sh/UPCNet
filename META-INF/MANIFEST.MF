@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Class-Path: lib/fastjson-1.2.49.jar
-Main-Class: NetAuth
-
