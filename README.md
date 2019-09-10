@@ -64,7 +64,7 @@ OpenWrt 15.05.1 r49587
 ````
 Author：EndangeredFish
 
-Email: zwy346545141@gmail.com
+Email: im.EndangeredFish@gmail.com
 
 First Commit Date:  Monday,1 October 2018 
 
