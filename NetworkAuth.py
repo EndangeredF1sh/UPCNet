@@ -26,7 +26,7 @@ except requests.exceptions.ConnectionError:
     print("网络连接故障,请检查你的网络连接或关闭系统弹出认证窗口！")
     exit(-1)
 
-payload = {'userId': username, 'password': password, 'service': serv, 'queryString': argParsed, 'operatorPwd': '', 'operatorUserId': '', 'vaildcode': '', 'passwordEncrypt': 'false'}
+payload = {'userId': username, 'password': password, 'service': serv, 'queryString': argParsed, 'operatorPwd': '', 'operatorUserId': '', 'validcode': '', 'passwordEncrypt': 'false'}
 postMessage = requests.post(url, data=payload)
 if postMessage.text.find("success") >= 0:
     print("登陆成功")
