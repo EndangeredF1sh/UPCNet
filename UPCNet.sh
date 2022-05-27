@@ -1,5 +1,5 @@
 back=""
-flag="2"
+
 username=""
 password=""
 service=""
@@ -25,7 +25,7 @@ echo $DATE network restart >>my_watchdog.log
 /etc/init.d/network restart
 sleep 5
 parameter='userId='${username}'&password='${password}'&service='${service}'&queryString='
-if [ $back == $flag ]
+if [ $back == 2 ]
 then
 parameterB='userId='${username}'&password='${password}'&service='${service}'&queryString='
 fi
@@ -37,7 +37,7 @@ url=${url//&/%2526}
 url=${url//:/%253A}
 url=${url//\//%252F}
 parameter=${parameter}${url}'&operatorPwd=&operatorUserId=&validcode=&passwordEncrypt=false'
-if [ $back == $flag ]
+if [ $back == 2 ]
 then
 parameterB=${parameterB}${url}'&operatorPwd=&operatorUserId=&validcode=&passwordEncrypt=false'
 echo $parameterB
@@ -45,7 +45,7 @@ fi
 
 echo $parameter
 curl -X POST -d $parameter $location
-if [ $back == $flag ]
+if [ $back == 2 ]
 then
 curl -X POST -d $parameterB $location
 fi
