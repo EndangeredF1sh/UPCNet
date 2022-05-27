@@ -19,7 +19,7 @@ fi
 echo "Auto install start ..."
 opkg update
 opkg install curl
-wget --no-check-certificate https://raw.githubusercontent.com/EndangeredF1sh/UPCNet/bash/UPCNet.sh && chmod +x UPCNet.sh
+wget --no-check-certificate https://raw.githubusercontent.com/howie-wu/UPCNet/bash/UPCNet.sh && chmod +x UPCNet.sh
 echo -n "input stuID -> "
 read stuID
 echo -n "input password -> "
