@@ -7,7 +7,7 @@
 ### Openwrt路由器自动安装
 在命令行中使用root权限运行以下代码即可
 ````
-wget --no-check-certificate https://raw.githubusercontent.com/EndangeredF1sh/UPCNet/bash/autoinstall.sh && chmod +x autoinstall.sh && sh autoinstall.sh
+wget --no-check-certificate https://raw.githubusercontent.com/howie-wu/UPCNet/bash/autoinstall.sh && chmod +x autoinstall.sh && sh autoinstall.sh
 ````
 
 ### 手动安装方法（其他Linux发行版，暂不支持pandavan）
