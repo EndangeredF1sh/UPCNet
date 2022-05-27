@@ -97,16 +97,23 @@ read -p "Enter selection [1-5] -> " num
 		serviceB="local"
 	fi
 fi
+
+if [ $bk == 2 ]
+then
 sed -i '1,3d' UPCNet.sh
 sed -i "1i back=\"$bk\"" UPCNet.sh
 sed -i "1i service=\"$service\"" UPCNet.sh
 sed -i "1i password=\"$passwd\"" UPCNet.sh
 sed -i "1i username=\"$stuID\"" UPCNet.sh
-if [ $bk == 2 ]
-then
-sed -i "1i serviceB=\"$service\"" UPCNet.sh
+sed -i "1i serviceB=\"$serviceB\"" UPCNet.sh
 sed -i "1i passwordB=\"$passwdB\"" UPCNet.sh
 sed -i "1i usernameB=\"$stuIDB\"" UPCNet.sh
+else
+sed -i '1,3d' UPCNet.sh
+sed -i "1i back=\"$bk\"" UPCNet.sh
+sed -i "1i service=\"$service\"" UPCNet.sh
+sed -i "1i password=\"$passwd\"" UPCNet.sh
+sed -i "1i username=\"$stuID\"" UPCNet.sh
 fi
 croncmd="sh ${SHELL_FOLDER}"/UPCNet.sh""
 cronjob="*/1 * * * * $croncmd"
