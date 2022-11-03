@@ -6,10 +6,14 @@
 
 ### Openwrt路由器自动安装
 在命令行中使用root权限运行以下代码即可
-````
+不自动安装curl
+````shell
 wget --no-check-certificate https://raw.githubusercontent.com/howie-wu/UPCNet/bash/autoinstall.sh && chmod +x autoinstall.sh && sh autoinstall.sh
 ````
-
+自动安装curl
+````shell
+wget --no-check-certificate https://raw.githubusercontent.com/howie-wu/UPCNet/bash/autoinstall.sh && chmod +x autoinstall.sh && sh autoinstall.sh
+````
 ### 手动安装方法（其他Linux发行版，暂不支持pandavan）
 在UPCNet.sh文件下输入学号(username)、密码(password)和运营商编号(service)，然后运行
 ```
