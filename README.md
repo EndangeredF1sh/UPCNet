@@ -2,13 +2,11 @@
 
 ![飞天面条教保佑你的代码](https://cdn.rawgit.com/LunaGao/BlessYourCodeTag/master/tags/ramen.svg)
 
-## 由于portal升级，queryString等参数发生变化，脚本暂时失效
-
 ### Openwrt路由器自动安装
 在命令行中使用root权限运行以下代码即可
 不自动安装curl
 ````shell
-wget --no-check-certificate https://raw.githubusercontent.com/howie-wu/UPCNet/bash/autoinstall.sh && chmod +x autoinstall.sh && sh autoinstall.sh
+wget --no-check-certificate https://raw.githubusercontent.com/howie-wu/UPCNet/bash/autoinstallNoUpdate.sh && chmod +x autoinstallNoUpdate.sh && sh autoinstallNoUpdate.sh
 ````
 自动安装curl
 ````shell
