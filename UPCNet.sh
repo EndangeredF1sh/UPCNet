@@ -21,8 +21,9 @@ do
 done
 
 echo $DATE network restart >>my_watchdog.log
-/etc/init.d/network restart
-sleep 5
+# /etc/init.d/network restart
+# 重启网卡需要吗？
+# sleep 5
 parameter='userId='${username}'&password='${password}'&service='${service}'&queryString='
 location='http://121.251.251.207/eportal/InterFace.do?method=login'
 url=`curl -Ls -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36" -o /dev/null -w %{url_effective} http://121.251.251.217`
