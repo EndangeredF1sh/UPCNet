@@ -11,7 +11,7 @@ tries=0
 echo --- my_watchdog start ---
 while [[ $tries -lt 3 ]]
 do
-        ip_list="223.5.5.5,8.8.8.8,119.29.29.29,baidu.com"
+        ip_list="119.29.29.29,baidu.com,223.5.5.5,8.8.8.8"
         ips=$(echo "$ip_list" | tr ',' ' ')
         for ip in $ips
         do
