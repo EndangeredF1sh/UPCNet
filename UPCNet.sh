@@ -11,16 +11,20 @@ tries=0
 echo --- my_watchdog start ---
 while [[ $tries -lt 3 ]]
 do
-        if /bin/ping -c 1 223.5.5.5 >/dev/null
+        ip_list=("223.5.5.5" "8.8.8.8" "119.29.29.29" "baidu.com")
+        for ip in "${ip_list[@]}"
+        do
+                if /bin/ping -c 1 "$ip" >/dev/null
         then
-                echo --- exit ---
+                echo "--- exit ---"
                 exit 0
         fi
+        done
         tries=$((tries+1))
         sleep 1
 done
 
-echo $DATE network restart >>my_watchdog.log
+echo $DATE network offline and try to restart... ... >>my_watchdog.log
 # /etc/init.d/network restart
 # 重启网卡需要吗？
 # sleep 5
