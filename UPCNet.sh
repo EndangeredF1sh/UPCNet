@@ -20,7 +20,7 @@ do
                         echo "--- exit ---"
                         exit 0
                 fi
-done
+        done
         tries=$((tries+1))
         sleep 1
 done
