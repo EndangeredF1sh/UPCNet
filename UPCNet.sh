@@ -11,8 +11,10 @@ tries=0
 echo --- my_watchdog start ---
 while [[ $tries -lt 3 ]]
 do
-        ip_list=("223.5.5.5" "8.8.8.8" "119.29.29.29" "baidu.com")
-        for ip in "${ip_list[@]}"
+        ip_list="223.5.5.5,8.8.8.8,119.29.29.29,baidu.com"
+        # 将字符串转换为数组
+        IFS=',' read -ra ips <<< "$ip_list"
+        for ip in "${ips[@]}"
         do
                 if /bin/ping -c 1 "$ip" >/dev/null
         then
