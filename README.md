@@ -12,6 +12,58 @@ wget --no-check-certificate https://raw.githubusercontent.com/how1ewu/UPCNet/bas
 ````shell
 wget --no-check-certificate https://raw.githubusercontent.com/how1ewu/UPCNet/bash/autoinstall.sh && chmod +x autoinstall.sh && sh autoinstall.sh
 ````
+### Openwrt路由器配置IPV6中继Relay
+> 引用自[Yumao's Blog](https://www.yumao.name/read/openwrt-ipv6-bridge-or-nat6/)
+LUCI界面中LAN接口设置：
+```
+路由通告服务：中继
+DHCPv6服务：中继
+NDP代理：中继
+```
+检查/etc/config/dhcp文件中，lan的相关参数
+```
+config dhcp 'lan' 
+    option ra "relay"
+    option dhcp "relay"
+    option ndp "relay"
+```
+修改 /etc/config/dhcp文件中，wan的相关参数
+```
+config dhcp 'wan'
+    option interface 'wan' 
+    option dhcpv6 'relay' 
+    option ra 'relay' 
+    option ndp 'relay' 
+    option master '1' 
+
+```
+添加计划任务
+```shell
+* * * * * /root/ipv6-bridge.sh
+```
+/root/ipv6-bridge.sh如下：
+```shell
+#!/bin/sh
+if [ -n "`ip -6 route show default|grep from -m 1`" ];then
+    logger -t "IPV6" change default gateway without from source
+    DEFAULT=`ip -6 route show default|grep from -m 1`
+    #刪除默認路由
+    ip -6 route del ${DEFAULT}
+    #添加無from source路由
+    ip -6 route add `echo ${DEFAULT}|sed -e 's/from [^ ]* //'`
+    #添加子網内設備通過br-lan訪問
+    ip -6 route add `echo ${DEFAULT}|grep from|awk '{printf $3}'` dev br-lan metric 128
+fi
+#刪除之前自動添加的錯誤路由 
+ip -6 route list|grep -v default|grep -v br-lan|grep static|while read -r s; do ip -6 route del $s; done
+#可選：可以根據需求自定義SUBNETEX的值，UPC校园网为240c
+SUBNETEX="240c:"
+ip -6 route list|grep -v default|grep -v br-lan|grep ${SUBNETEX}|while read -r s; do ip -6 route del $s; done
+
+```
+```shell
+chmod +x /root/ipv6-bridge.sh
+```
 ### 手动安装方法（其他Linux发行版，暂不支持pandavan）
 在UPCNet.sh文件下输入学号(username)、密码(password)和运营商编号(service)，然后运行
 ```
