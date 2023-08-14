@@ -43,6 +43,20 @@ curl -X POST -d $parameter $location
 
 if [ $back == 2 ]
 then
+do
+        ip_list="119.29.29.29,baidu.com,223.5.5.5,8.8.8.8"
+        ips=$(echo "$ip_list" | tr ',' ' ')
+        for ip in $ips
+        do
+                if /bin/ping -c 1 "$ip" >/dev/null
+                then
+                        echo "--- exit ---"
+                        exit 0
+                fi
+        done
+        tries=$((tries+1))
+        sleep 1
+done
 parameterB='userId='${usernameB}'&password='${passwordB}'&service='${serviceB}'&queryString='
 parameterB=${parameterB}${url}'&operatorPwd=&operatorUserId=&validcode=&passwordEncrypt=false'
 echo $parameterB
