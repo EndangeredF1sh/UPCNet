@@ -43,6 +43,7 @@ curl -X POST -d $parameter $location
 
 if [ $back == 2 ]
 then
+while [[ $tries -lt 3 ]]
 do
         ip_list="119.29.29.29,baidu.com,223.5.5.5,8.8.8.8"
         ips=$(echo "$ip_list" | tr ',' ' ')
