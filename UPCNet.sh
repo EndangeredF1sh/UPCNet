@@ -57,7 +57,7 @@ do
                         exit 0
                 fi
         done
-        tries=$((tries+1))
+        tries=$((triesagain+1))
         sleep 1
 done
 parameterB='userId='${usernameB}'&password='${passwordB}'&service='${serviceB}'&queryString='
