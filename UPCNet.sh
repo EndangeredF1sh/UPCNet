@@ -43,7 +43,7 @@ parameter=${parameter}${url}'&operatorPwd=&operatorUserId=&validcode=&passwordEn
 # echo $parameter
 echo -e "Try to log in using the primary account\n"
 curl -X POST -d $parameter $location
-sleep 3
+sleep 8
 if [ $back == 2 ]
 then
 triesagain=0
