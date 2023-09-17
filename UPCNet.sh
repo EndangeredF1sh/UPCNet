@@ -41,9 +41,9 @@ url=${url//:/%253A}
 url=${url//\//%252F}
 parameter=${parameter}${url}'&operatorPwd=&operatorUserId=&validcode=&passwordEncrypt=false'
 # echo $parameter
+echo -e "Try to log in using the primary account\n"
 curl -X POST -d $parameter $location
-echo "Try to log in using the primary account"
-sleep 5
+sleep 3
 if [ $back == 2 ]
 then
 triesagain=0
@@ -56,6 +56,7 @@ do
         do
                 if /bin/ping -c 1 "$ip" >/dev/null
                 then
+                        echo -e "\n"
                         echo "Log in with your primary account, the network is back to normal, enjoy~"
                         echo "---close script---"
                         exit 0
@@ -64,7 +65,7 @@ do
         tries=$((triesagain+1))
         sleep 1
 done
-echo "FAILED, Start trying to log in with an alternate account"
+echo -e "FAILED, Start trying to log in with an alternate account\n"
 parameterB='userId='${usernameB}'&password='${passwordB}'&service='${serviceB}'&queryString='
 parameterB=${parameterB}${url}'&operatorPwd=&operatorUserId=&validcode=&passwordEncrypt=false'
 # echo $parameterB
@@ -78,6 +79,7 @@ do
         do
                 if /bin/ping -c 1 "$ip" >/dev/null
                 then
+                        echo -e "\n"
                         echo "Log in with your alternate account, the network is back to normal, enjoy~"
                         echo "---close script---"
                         exit 0
