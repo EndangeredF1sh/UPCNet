@@ -1,17 +1,33 @@
+cat=""
+back=""
+username=""
+password=""
+service=""
 usernameB=""
 passwordB=""
 serviceB=""
-username=""
-password="!"
-service=""
-back=""
-cat=""
 
-
+DATE=`date +%Y-%m-%d-%H:%M:%S`
+echo "Start detecting network connection status......"
+ip_list="119.29.29.29,223.5.5.5"
+ips=$(echo "$ip_list" | tr ',' ' ')
+for ip in $ips
+do
+        if /bin/ping -c 1 "$ip" >/dev/null
+        then
+                echo "The network connection is normal, enjoy~"
+                echo "---close script---"
+                exit 0
+        fi
+done
+sleep 1
+echo "!!!ERROR: Network connection exception!!!"
+echo "Start writing to the log and execute the login script..."
 echo $DATE network offline and try to restart... ... >>my_watchdog.log
 # /etc/init.d/network restart
 # 重启网卡需要吗？
 # sleep 3
+
 if [ $cat == 2 ]
 then
         uci set openclash.config.enable='0'
