@@ -1,4 +1,13 @@
+usernameB=""
+passwordB=""
+serviceB=""
+username=""
+password="!"
+service=""
+back=""
 cat=""
+
+
 echo $DATE network offline and try to restart... ... >>my_watchdog.log
 # /etc/init.d/network restart
 # 重启网卡需要吗？
