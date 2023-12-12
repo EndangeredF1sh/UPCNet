@@ -27,6 +27,13 @@ echo $DATE network offline and try to restart... ... >>my_watchdog.log
 # /etc/init.d/network restart
 # 重启网卡需要吗？
 # sleep 3
+if [ $cat == 2 ]
+then
+        uci set openclash.config.enable='0'
+        uci commit openclash
+        /etc/init.d/openclash stop
+        sleep 3
+done
 parameter='userId='${username}'&password='${password}'&service='${service}'&queryString='
 location='http://121.251.251.207/eportal/InterFace.do?method=login'
 url=`curl -Ls -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36" -o /dev/null -w %{url_effective} http://121.251.251.217`
@@ -51,8 +58,13 @@ do
                 echo -e "\n"
                 echo "Log in with your primary account, the network is back to normal, enjoy~"
                 echo "---close script---"
-                reboot
-                sleep 5
+                if [ $cat == 2 ]
+                then
+                        uci set openclash.config.enable='1'
+                        uci commit openclash
+                        /etc/init.d/openclash start
+                        sleep 3
+                done
                 exit 0
         fi
 done
@@ -70,8 +82,13 @@ do
                 echo -e "\n"
                 echo "Log in with your alternate account, the network is back to normal, enjoy~"
                 echo "---close script---"
-                reboot
-                sleep 5
+                if [ $cat == 2 ]
+                then
+                        uci set openclash.config.enable='1'
+                        uci commit openclash
+                        /etc/init.d/openclash start
+                        sleep 3
+                done
                 exit 0
         fi
 done
