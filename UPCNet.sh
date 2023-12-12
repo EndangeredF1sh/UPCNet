@@ -32,7 +32,7 @@ then
         uci set openclash.config.enable='0'
         uci commit openclash
         /etc/init.d/openclash stop
-        sleep 3
+        sleep 10
 done
 parameter='userId='${username}'&password='${password}'&service='${service}'&queryString='
 location='http://121.251.251.207/eportal/InterFace.do?method=login'
@@ -63,7 +63,7 @@ do
                         uci set openclash.config.enable='1'
                         uci commit openclash
                         /etc/init.d/openclash start
-                        sleep 3
+                        sleep 30
                 done
                 exit 0
         fi
@@ -87,7 +87,7 @@ do
                         uci set openclash.config.enable='1'
                         uci commit openclash
                         /etc/init.d/openclash start
-                        sleep 3
+                        sleep 30
                 done
                 exit 0
         fi
