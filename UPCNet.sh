@@ -51,10 +51,9 @@ do
                 echo "Log in with your primary account, the network is back to normal, enjoy~"
                 echo "---close script---"
                 reboot
+                sleep 5
                 exit 0
         fi
-done
-sleep 1
 done
 echo -e "FAILED, Start trying to log in with an alternate account\n"
 parameterB='userId='${usernameB}'&password='${passwordB}'&service='${serviceB}'&queryString='
@@ -71,10 +70,9 @@ do
                 echo "Log in with your alternate account, the network is back to normal, enjoy~"
                 echo "---close script---"
                 reboot
+                sleep 5
                 exit 0
         fi
-        done
-sleep 1
 done
 echo "You can't sign in with your existing account. Please check your configuration and other network settings and close script"
 fi
