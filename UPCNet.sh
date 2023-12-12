@@ -50,8 +50,6 @@ curl -X POST -d $parameter $location
 sleep 8
 if [ $back == 2 ]
 then
-ip_list="119.29.29.29,223.5.5.5"
-ips=$(echo "$ip_list" | tr ',' ' ')
 for ip in $ips
 do
         if /bin/ping -c 1 "$ip" >/dev/null
@@ -63,10 +61,17 @@ do
                 then
                         uci set openclash.config.enable='1'
                         uci commit openclash
-                        /etc/init.d/openclash start
-                        sleep 40
                         reboot
                 fi
+        fi
+done
+for ip in $ips
+do
+        if /bin/ping -c 1 "$ip" >/dev/null
+        then
+                echo "The network connection is normal, enjoy~"
+                echo "---close script---"
+                exit 0
         fi
 done
 echo -e "FAILED, Start trying to log in with an alternate account\n"
@@ -74,8 +79,6 @@ parameterB='userId='${usernameB}'&password='${passwordB}'&service='${serviceB}'&
 parameterB=${parameterB}${url}'&operatorPwd=&operatorUserId=&validcode=&passwordEncrypt=false'
 # echo $parameterB
 curl -X POST -d $parameterB $location
-ip_list="119.29.29.29,223.5.5.5"
-ips=$(echo "$ip_list" | tr ',' ' ')
 for ip in $ips
 do
         if /bin/ping -c 1 "$ip" >/dev/null
@@ -87,8 +90,6 @@ do
                 then
                         uci set openclash.config.enable='1'
                         uci commit openclash
-                        /etc/init.d/openclash start
-                        sleep 40
                         reboot
                 fi
         fi
