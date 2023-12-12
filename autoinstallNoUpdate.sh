@@ -18,6 +18,8 @@ fi
 
 echo "Auto install start ..."
 wget --no-check-certificate https://raw.githubusercontent.com/how1ewu/UPCNet/bash/UPCNet.sh && chmod +x UPCNet.sh
+echo -n "If you have openclash? (1 for no,2 for yes) -> "
+read cat
 echo -n "If Backup (1 for no,2 for yes) -> "
 read bk
 echo -n "input stuID -> "
@@ -98,7 +100,8 @@ fi
 
 if [ $bk == 2 ]
 then
-sed -i '1,7d' UPCNet.sh
+sed -i '1,8d' UPCNet.sh
+sed -i "1i cat=\"$cat\"" UPCNet.sh
 sed -i "1i back=\"$bk\"" UPCNet.sh
 sed -i "1i service=\"$service\"" UPCNet.sh
 sed -i "1i password=\"$passwd\"" UPCNet.sh
@@ -107,7 +110,8 @@ sed -i "1i serviceB=\"$serviceB\"" UPCNet.sh
 sed -i "1i passwordB=\"$passwdB\"" UPCNet.sh
 sed -i "1i usernameB=\"$stuIDB\"" UPCNet.sh
 else
-sed -i '1,4d' UPCNet.sh
+sed -i '1,5d' UPCNet.sh
+sed -i "1i cat=\"$cat\"" UPCNet.sh
 sed -i "1i back=\"$bk\"" UPCNet.sh
 sed -i "1i service=\"$service\"" UPCNet.sh
 sed -i "1i password=\"$passwd\"" UPCNet.sh
