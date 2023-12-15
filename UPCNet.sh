@@ -63,6 +63,8 @@ do
                         uci commit openclash
                         reboot
                 fi
+                sleep 15
+                exit 0
         fi
 done
 for ip in $ips
@@ -92,6 +94,9 @@ do
                         uci commit openclash
                         reboot
                 fi
+                sleep 15
+                exit 0
+
         fi
 done
 echo "You can't sign in with your existing account. Please check your configuration and other network settings and close script"
