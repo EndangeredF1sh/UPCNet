@@ -9,7 +9,7 @@ serviceB=""
 
 DATE=`date +%Y-%m-%d-%H:%M:%S`
 echo "Start detecting network connection status......"
-ip_list="119.29.29.29,223.5.5.5"
+ip_list="39.156.66.10,119.29.29.29,223.5.5.5"
 ips=$(echo "$ip_list" | tr ',' ' ')
 for ip in $ips
 do
